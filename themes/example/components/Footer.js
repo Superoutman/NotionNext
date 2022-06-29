@@ -1,25 +1,26 @@
 import BLOG from '@/blog.config'
-import DarkModeButton from '@/components/DarkModeButton'
-
-export const Footer = (props) => {
+import Vercel from '@/components/Vercel'
+const Footer = ({ fullWidth }) => {
   const d = new Date()
-  const currentYear = d.getFullYear()
-  const startYear = BLOG.SINCE && BLOG.SINCE !== currentYear && BLOG.SINCE + '-'
-
-  return <footer className="w-full bg-white px-6 border-t dark:border-hexo-black-gray dark:bg-hexo-black-gray ">
-        <DarkModeButton className='text-center pt-4'/>
-
-        <div className="container mx-auto max-w-4xl py-6 md:flex flex-wrap md:flex-no-wrap md:justify-between items-center text-sm">
-            <div className='text-center'> &copy;{`${startYear}${currentYear}`} {BLOG.AUTHOR}. All rights reserved.</div>
-            <div className="md:p-0 text-center md:text-right text-xs">
-                {/* 右侧链接 */}
-                {/* <a href="#" className="text-black no-underline hover:underline">Privacy Policy</a> */}
-                {BLOG.BEI_AN && (<a href="https://beian.miit.gov.cn/" className="text-black dark:text-gray-200 no-underline hover:underline ml-4">{BLOG.BEI_AN} </a>)}
-                <span className='dark:text-gray-200 no-underline ml-4'>
-                    Powered by
-                    <a href="https://github.com/tangly1024/NotionNext" className=' hover:underline'> NotionNext {BLOG.VERSION}  </a>
-                </span>
-            </div>
+  const y = d.getFullYear()
+  const from = +BLOG.since
+  return (
+    <div
+      className={`mt-6 flex-shrink-0 m-auto w-full text-gray-500 dark:text-gray-400 transition-all ${
+        !fullWidth ? 'max-w-2xl px-4' : 'px-4 md:px-24'
+      }`}
+    >
+      <hr className="border-gray-200 dark:border-gray-600" />
+      <div className="my-4 text-sm leading-6">
+        <div className="flex align-baseline justify-between flex-wrap">
+          <p>
+            © {BLOG.author} {from === y || !from ? y : `${from} - ${y}`}
+          </p>
+          <Vercel />
         </div>
-    </footer>
+      </div>
+    </div>
+  )
 }
+
+export default Footer
